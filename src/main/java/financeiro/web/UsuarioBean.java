@@ -1,32 +1,34 @@
 package financeiro.web;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
+@ManagedBean
 public class UsuarioBean {
-	private String name;
+
+	private String nome;
 	private String email;
 	private String senha;
 	private String confirmaSenha;
-	
+
 	public String novo(){
 		return "usuario";
 	}
-	
 	public String salvar(){
 		FacesContext context = FacesContext.getCurrentInstance();
 		if(!this.senha.equalsIgnoreCase(this.confirmaSenha)){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Senha confirmada incorretamente",""));
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"senha confirmada incorretamente", ""));
 			return "usuario";
 		}
-		return "sucesso";
+		return "mostraUsuario";
 	}
-	
-	public String getName() {
-		return name;
+
+	public String getNome() {
+		return nome;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	public String getEmail() {
 		return email;

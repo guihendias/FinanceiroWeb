@@ -1,0 +1,7 @@
+127.0.0.1 - - [14/Aug/2015:14:31:48 -0300] "POST /financeiro/index.jsf HTTP/1.1" 500 16418 http-bio-8080-exec-1 250
+127.0.0.1 - - [14/Aug/2015:14:31:49 -0300] "GET /financeiro/index.jsf HTTP/1.1" 200 926 http-bio-8080-exec-2 40
+127.0.0.1 - - [14/Aug/2015:14:31:49 -0300] "GET /financeiro/javax.faces.resource/jsf.js.jsf?ln=javax.faces&stage=Development HTTP/1.1" 304 - http-bio-8080-exec-3 5
+127.0.0.1 - - [14/Aug/2015:14:31:51 -0300] "POST /financeiro/index.jsf HTTP/1.1" 200 1293 http-bio-8080-exec-4 106
+127.0.0.1 - - [14/Aug/2015:14:31:56 -0300] "POST /financeiro/usuario.jsf HTTP/1.1" 200 871 http-bio-8080-exec-5 35
+127.0.0.1 - - [14/Aug/2015:14:31:58 -0300] "POST /financeiro/mostraUsuario.jsf HTTP/1.1" 200 926 http-bio-8080-exec-6 13
+127.0.0.1 - - [14/Aug/2015:14:31:58 -0300] "GET /financeiro/javax.faces.resource/jsf.js.jsf?ln=javax.faces&stage=Development HTTP/1.1" 304 - http-bio-8080-exec-7 3
