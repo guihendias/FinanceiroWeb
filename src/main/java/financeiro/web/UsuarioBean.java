@@ -1,51 +1,94 @@
 package financeiro.web;
 
+import java.util.List;
+
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
+import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
-@ManagedBean
+import financeiro.usuario.Usuario;
+import financeiro.usuario.UsuarioRN;
+
+
+@ManagedBean(name="usuarioBean")
+@RequestScoped
 public class UsuarioBean {
 
-	private String nome;
-	private String email;
-	private String senha;
-	private String confirmaSenha;
+	private Usuario usuario = new Usuario();
+	private String confirmarSenha;
+	private List<Usuario> lista;
+	private String destinoSalvar;
 
 	public String novo(){
+		this.destinoSalvar = "usuarioSucesso";
+		this.usuario = new Usuario();
+		this.usuario.setAtivo(true);
 		return "usuario";
 	}
-	public String salvar(){
-		FacesContext context = FacesContext.getCurrentInstance();
-		if(!this.senha.equalsIgnoreCase(this.confirmaSenha)){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"senha confirmada incorretamente", ""));
-			return "usuario";
-		}
-		return "mostraUsuario";
+
+	public String editar(){
+		this.confirmarSenha = this.usuario.getSenha();
+		return "/publico/usuario";
 	}
 
-	public String getNome() {
-		return nome;
+	public String salvar(){
+		FacesContext context = FacesContext.getCurrentInstance();
+
+		String senha = this.usuario.getSenha();
+		if(!senha.equals(this.confirmarSenha)){
+			FacesMessage facesMessage = new FacesMessage("A senha não foi confirmada corretamente");
+			context.addMessage(null, facesMessage);
+			return null;
+		}
+		UsuarioRN usuarioRN = new UsuarioRN();
+		usuarioRN.salvar(this.usuario);
+		return this.destinoSalvar;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+
+	public String excluir(){
+		UsuarioRN usuarioRN = new UsuarioRN();
+		usuarioRN.excluir(this.usuario);
+		this.lista = null;
+		return null;
 	}
-	public String getEmail() {
-		return email;
+
+	public String ativar(){
+		if(!this.usuario.isAtivo()){
+			this.usuario.setAtivo(true);
+		}else{
+			this.usuario.setAtivo(false);
+		}
+
+		UsuarioRN usuarioRN = new UsuarioRN();
+		usuarioRN.salvar(this.usuario);
+		return null;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+
+	public List<Usuario> getLista(){
+		if(this.lista == null){
+			UsuarioRN usuarioRN = new UsuarioRN();
+			this.lista = usuarioRN.listar();
+		}
+		return this.lista;
 	}
-	public String getSenha() {
-		return senha;
+
+	public Usuario getUsuario() {
+		return usuario;
 	}
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
-	public String getConfirmaSenha() {
-		return confirmaSenha;
+	public String getConfirmarSenha() {
+		return confirmarSenha;
 	}
-	public void setConfirmaSenha(String confirmaSenha) {
-		this.confirmaSenha = confirmaSenha;
+	public void setConfirmarSenha(String confirmarSenha) {
+		this.confirmarSenha = confirmarSenha;
+	}
+	public String getDestinoSalvar() {
+		return destinoSalvar;
+	}
+
+	public void setDestinoSalvar(String destinoSalvar) {
+		this.destinoSalvar = destinoSalvar;
 	}
 }
